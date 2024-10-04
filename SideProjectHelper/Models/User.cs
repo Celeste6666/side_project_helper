@@ -9,7 +9,6 @@ public class User
     [Required]
     [Display(Name = "First Name")]
     [MaxLength(50)]
-
     public string FirstName { get; set; }
 
     [Required]
@@ -20,6 +19,9 @@ public class User
     [Required]
     [MaxLength(100)]
     public string Email { get; set; }
+    
+    [Required]
+    public string Password { get; set; }
 
     public List<Project>? Projects { get; } = [];
 }
