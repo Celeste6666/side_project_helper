@@ -58,7 +58,7 @@ namespace SideProjectHelper.Controllers
         public async Task<IActionResult> Create([Bind("ProjectId,Title,Description")] Project project, IFormFile? Photo)
         {
             // TODO: change User according to current login user
-            var user = _context.User.Find(1);
+            var user = _context.User.FirstOrDefault();
             project.User = user;
             ModelState["User"].ValidationState = ModelValidationState.Valid;
             
@@ -108,7 +108,7 @@ namespace SideProjectHelper.Controllers
                 return NotFound();
             }
             // TODO: change User according to current login user
-            var user = _context.User.Find(1);
+            var user = _context.User.FirstOrDefault();
             project.User = user;
             ModelState["User"].ValidationState = ModelValidationState.Valid;
             if (ModelState.IsValid)
@@ -195,8 +195,7 @@ namespace SideProjectHelper.Controllers
             var fileName = Guid.NewGuid() + "-" + photo.FileName;
 
             // set destination path dynamically
-            // file upload route in windows should be // ?
-            var uploadPath = System.IO.Directory.GetCurrentDirectory() + "\\wwwroot\\img/project\\" + fileName;
+            var uploadPath = System.IO.Directory.GetCurrentDirectory() + "/wwwroot/img/project/" + fileName;
 
             // copy the file 
             // using: the using statement ensures that a disposable instance is disposed
