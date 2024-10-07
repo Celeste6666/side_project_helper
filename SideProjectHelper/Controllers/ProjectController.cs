@@ -195,7 +195,7 @@ namespace SideProjectHelper.Controllers
             var fileName = Guid.NewGuid() + "-" + photo.FileName;
 
             // set destination path dynamically
-            var uploadPath = System.IO.Directory.GetCurrentDirectory() + "/wwwroot/img/project/" + fileName;
+            var uploadPath = System.IO.Directory.GetCurrentDirectory() + "\\wwwroot\\img\\project/" + fileName;
 
             // copy the file 
             // using: the using statement ensures that a disposable instance is disposed
