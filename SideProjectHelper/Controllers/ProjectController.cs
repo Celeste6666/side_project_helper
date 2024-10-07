@@ -184,19 +184,29 @@ namespace SideProjectHelper.Controllers
             return _context.Project.Any(e => e.ProjectId == id);
         }
         
-        // according to material
+        // reference
+        // Richard Freeman - https://github.com/ifotn/ThreadHaven
+        // https://sd.blackball.lv/en/articles/read/19650-file-upload-in-aspnet-core-6-detailed-guide
         private static string UploadPhoto(IFormFile photo)
         {
             // get temp location of uploaded photo
-            var filePath = Path.GetTempFileName();
+            // var filePath = Path.GetTempFileName();
 
             // use GUID (globally unique identifier) to create unique file name
             // eg. product.jpg => abc123-product.jpg
             var fileName = Guid.NewGuid() + "-" + photo.FileName;
 
             // set destination path dynamically
-            var uploadPath = System.IO.Directory.GetCurrentDirectory() + "\\wwwroot\\img\\project/" + fileName;
+            // var uploadPath = System.IO.Directory.GetCurrentDirectory() + "\\wwwroot\\img\\project\\" + fileName;
+            var path = Path.Combine(System.IO.Directory.GetCurrentDirectory(), "wwwroot", "img", "project");
+            // we should ensure the Directory is exist
+            if (!Directory.Exists(Path.GetFullPath(path)))
+            {
+                // if not, create Directory
+                Directory.CreateDirectory(path);
+            }
 
+            var uploadPath = Path.Combine(path, fileName);
             // copy the file 
             // using: the using statement ensures that a disposable instance is disposed
             // https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/using
